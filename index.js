@@ -23,34 +23,34 @@ app.get("/:id", (req, res) => {
 const usertosocketMapping = new Map();
 const sockettouserMapping = new Map();
 
-
 io.on("connection", (socket) => {
   // Triggered when a peer hits the join room button.
   socket.on("join", (data) => {
-    const {roomId,username} = data;
+    const { roomId, username } = data;
     const { rooms } = io.sockets.adapter;
     const room = rooms.get(roomId);
- 
 
     if (room === undefined) {
       socket.join(roomId);
-      console.log('new room created');
-    } else if (room.size === 1){
+      console.log("new room created");
+      socket.emit("created", { roomId, username });
+    } else if (room.size === 1) {
       socket.join(roomId);
       socket.emit("joined", { roomId, username });
+      // socket.emit("joined", { roomId, username });
     } else {
       // when there are already two people inside the room.
       socket.emit("full");
     }
   });
 
-  socket.on("ready", (roomId) => {
-    socket.broadcast.to(roomId).emit("ready");
-  });
-
   socket.on("ice-candidate", (candidate, roomId) => {
     console.log("candidate", candidate);
     socket.broadcast.to(roomId).emit("ice-candidate", candidate);
+  });
+
+  socket.on("ready", (roomId) => {
+    socket.broadcast.to(roomId).emit("ready");
   });
 
   socket.on("offer", (offer, roomId) => {
@@ -69,6 +69,6 @@ io.on("connection", (socket) => {
   });
 });
 
-  server.listen(process.env.PORT || port, () => {
-   console.log(`Server is running on port ${port}`);
+server.listen(process.env.PORT || port, () => {
+  console.log(`Server is running on port ${port}`);
 });

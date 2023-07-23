@@ -10,22 +10,63 @@
     <h1 class="brand">Airdropp</h1>
 
     <div id="joinRoom">
-      <h2>Join a room to send or recieve a file</h2>
+      <h2 id="label">Join a room to send or recieve a file</h2>
       <div class="flex">
         <input type="text" id="roomIdInput" placeholder="Enter Room ID" />
-        <button onclick="joinRoom()">Join Room</button>
+        <button id="joinBtn" onclick="joinRoom()">Join Room</button>
       </div>
     </div>
-    <div id="userprofile">
-      <div id="head"></div>
-      <div id="body">
-        <div id="left-leg"></div>
-        <div id="right-leg"></div>
+    <div class="userProfileContainer" id="userprofileContainer">
+      <div class="userProfile" id="userprofile"></div>
+      <div class="connectionLine">
+        <div class="thread" id="thread">
+          <div id="progressBar"></div>
+        </div>
+        <div id="fileInfo" class="fileInfo">hello</div>
+      </div>
+      <div class="peerProfile" id="peerprofile"></div>
+    </div>
+    <div class="userNameDisplayContainer" id="usernamedisplayContainer">
+      <div class="userNameDisplay" id="usernameDisplay">
+        <p id="usernameLabel">
+          You are popular as: <span id="username"></span>
+        </p>
+      </div>
+      <div class="peerNameDisplay" id="peernameDisplay">
+        <p id="peernameLabel">
+          You are popular as: <span id="peerusername"></span>
+        </p>
       </div>
     </div>
-    <button onclick="sendMessage()">Send Hiii</button>
-    <div id="usernameDisplay">
-      <p>You are popular as: <span id="username"></span></p>
+    <div class="mainContainerCenter">
+      <div class="mainContainer" id="maincontainer">
+        <div class="drop-zone">
+          <div class="icon-container">
+            <img
+              class="left-img"
+              src="../images/file.svg"
+              width="70px"
+              alt=""
+            />
+            <img
+              class="center-img"
+              src="../images/file.svg"
+              width="70px"
+              alt=""
+            />
+            <img
+              class="right-img"
+              src="../images/file.svg"
+              width="70px"
+              alt=""
+            />
+          </div>
+          <h2>
+            Drag and drop or <span class="browse-span"> browse </span> a file.
+          </h2>
+          <input type="file" name="file" id="file-input" />
+        </div>
+      </div>
     </div>
 
     <!-- Socket.IO Client Library -->

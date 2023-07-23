@@ -11,16 +11,13 @@ app.set("views", __dirname + "/views");
 app.use(express.static("public"));
 
 const port = 4000;
+let hostname;
 
 app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/:id", (req, res) => {
-  res.render("share");
-});
-
-const usertosocketMapping = new Map();
+// const usertosocketMapping = new Map();
 const sockettouserMapping = new Map();
 
 io.on("connection", (socket) => {
@@ -32,12 +29,13 @@ io.on("connection", (socket) => {
 
     if (room === undefined) {
       socket.join(roomId);
-      console.log("new room created");
+      sockettouserMapping.set(socket.id, username);
       socket.emit("created", { roomId, username });
     } else if (room.size === 1) {
       socket.join(roomId);
-      socket.emit("joined", { roomId, username });
-      // socket.emit("joined", { roomId, username });
+      const firstUserSocketId = [...sockettouserMapping.keys()][0];
+      const firstUserUsername = sockettouserMapping.get(firstUserSocketId);
+      socket.emit("joined", { roomId, username, firstUserUsername });
     } else {
       // when there are already two people inside the room.
       socket.emit("full");
@@ -45,21 +43,18 @@ io.on("connection", (socket) => {
   });
 
   socket.on("ice-candidate", (candidate, roomId) => {
-    console.log("candidate", candidate);
     socket.broadcast.to(roomId).emit("ice-candidate", candidate);
   });
 
-  socket.on("ready", (roomId) => {
-    socket.broadcast.to(roomId).emit("ready");
+  socket.on("ready", (roomId, username) => {
+    socket.broadcast.to(roomId).emit("ready", username);
   });
 
   socket.on("offer", (offer, roomId) => {
-    console.log("offer", offer);
     socket.broadcast.to(roomId).emit("offer", offer);
   });
 
   socket.on("answer", (answer, roomId) => {
-    console.log("answer", answer);
     socket.broadcast.to(roomId).emit("answer", answer);
   });
 

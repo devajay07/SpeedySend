@@ -188,7 +188,7 @@ body::before {
 }
 #progressBar{
     width:0px;
-    height:10px;
+    height:6px;
     background-color: rgb(0, 106, 255);
 }
 .peerProfile{

@@ -161,6 +161,10 @@ const initiateCall = (username) => {
   handleLabel();
   updatePeerDetails();
   rtcConnection = createPeerConnection();
+  rtcConnection.ondatachannel = (event) => {
+    const incomingDataChannel = event.channel;
+    setDataChannelListeners(incomingDataChannel);
+  };
   rtcConnection
     .createOffer()
     .then((offer) => {

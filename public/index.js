@@ -380,7 +380,7 @@ function uploadFile() {
     fileName = fileName + "....";
   }
   fileInformation.textContent = `Sending: ${fileName}, Size: ${file.size} bytes`;
-  const CHUNK_SIZE = 16 * 1024; // 16 KB chunk size (you can adjust this as needed)
+  const CHUNK_SIZE = 8 * 1024; // 16 KB chunk size (you can adjust this as needed)
   const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
   totalBytesToSend = file.size; // Store the total bytes to send
 

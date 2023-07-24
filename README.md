@@ -1,6 +1,7 @@
-# **[https://www.airdropp.in](Airdropp.in)** # - the freedom of fast and secure file sharing in real time\*\*
+# [**Airdropp.in**](https://www.airdropp.in) - Free, fast, secure live data sharing
 
-Airdropp.in is a cutting-edge web application that allows users to seamlessly share files in real-time without the need for a centralized server. Leveraging the power of WebRTC technology, Airdropp.in establishes a direct peer-to-peer connection between users, ensuring lightning-fast transfers, end-to-end encryption, and complete data privacy.
+Airdropp.in allows users to share data in real time and seamlessly without the need for a central server.
+Using the power of WebRTC technology, Airdropp.in creates a direct connection between clients, providing high-speed transactions, end-to-end encryption and complete data privacy.
 
 **Key Features:**
 
@@ -18,7 +19,7 @@ Airdropp.in is a cutting-edge web application that allows users to seamlessly sh
 
 **Open Source for Contributors:**
 
-Airdropp.in is an open-source project, and we welcome contributions from the developer community. If you'd like to contribute to the project or have suggestions for improvement, please feel free to open an issue or submit a pull request on our [GitHub repository](https://github.com/yourusername/airdropp.in).
+Airdropp.in is an open source project and we welcome contributions from the developer community. If you have a contribution to the project or suggestions for improvement, please feel free to ask an issue or submit a download request to our [GitHub repository](https://github.com/yourusername/airdropp.in).
 
 **Dependencies:**
 
@@ -28,15 +29,13 @@ Airdropp.in relies on the power of WebRTC for real-time peer-to-peer communicati
 
 This project is licensed under the MIT License.
 
-Sure! Here's the revised To-Do list using Markdown format:
-
 **To-Do List: Enhancements for Airdropp.in**
 
-- [ ] **Bi-Directional Transfer Fix:** Investigate and resolve the issue with bi-directional file transfers.
+- [ ] **Bi-Directional Transfer Fix:** Check and troubleshoot bi-directional data transfer.
 
-- [ ] **Handling Peer Disconnects:** Implement a mechanism to handle scenarios when a peer leaves in the middle of a file transfer.
+- [ ] **Handling Peer Disconnects:** Implement a mechanism to handle the case where a peer leaves in the middle of a file transfer.
 
-- [ ] **Safari Compatibility:** Address the compatibility issues with Safari browser that cause discrepancies in received file formats.
+- [ ] **Safari Compatibility:** Address the compatibility issues with Safari browser that cause issue in received file formats.
 
 - [ ] **Upload/Download Speed Indication:** Introduce a feature to display real-time upload and download speeds during file sharing.
 

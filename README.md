@@ -25,9 +25,9 @@ Airdropp.in is an open source project and we welcome contributions from the deve
 
 Airdropp.in relies on the power of WebRTC for real-time peer-to-peer communication. The application utilizes Socket.IO solely for signaling purposes to establish connections between peers.
 
-**License:**
+## License
 
-This project is licensed under the MIT License.
+This project is licensed under the terms of the [MIT License](./LICENSE).
 
 **To-Do List: Enhancements for Airdropp.in**
 

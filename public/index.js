@@ -121,6 +121,8 @@ const browseSpan = document.querySelector(".browse-span");
 const fileInput = document.querySelector("#file-input");
 const progressBar = document.querySelector("#progressBar");
 const thread = document.querySelector("#thread");
+const userNameDisplay = document.querySelector("#usernameDisplay");
+const peerNameDisplay = document.querySelector("#peernameDisplay");
 const fileInformation = document.querySelector("#fileInfo");
 peerProfile.style.display = "none";
 peerProfileName.style.display = "none";
@@ -256,7 +258,7 @@ function setDataChannelListeners(dataChannel) {
 
   dataChannel.onmessage = (event) => {
     const data = event.data;
-    thread.style.backgroundColor = "green";
+    thread.style.backgroundColor = "rgb(0, 106, 255)";
     progressBar.style.backgroundColor = "orange";
     fileInformation.style.display = "block";
     progressBar.style.width = "100%";
@@ -327,6 +329,8 @@ function handleUi() {
   document.getElementById("roomIdInput").style.display = "none";
   document.getElementById("joinBtn").style.display = "none";
   document.getElementById("usernameLabel").textContent = username;
+  userNameDisplay.style.color = "white";
+  peerNameDisplay.style.color = "white";
   handleLabel();
   showConnectionAnimatiion();
 }

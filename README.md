@@ -1,4 +1,4 @@
-**Airdropp.in - the freedom of fast and secure file sharing in real time**
+# **[https://www.airdropp.in](Airdropp.in)** # - the freedom of fast and secure file sharing in real time\*\*
 
 Airdropp.in is a cutting-edge web application that allows users to seamlessly share files in real-time without the need for a centralized server. Leveraging the power of WebRTC technology, Airdropp.in establishes a direct peer-to-peer connection between users, ensuring lightning-fast transfers, end-to-end encryption, and complete data privacy.
 
@@ -14,7 +14,7 @@ Airdropp.in is a cutting-edge web application that allows users to seamlessly sh
 
 - **User-Friendly Interface:** A simple and intuitive user interface makes Airdropp.in accessible to all users, regardless of technical expertise.
 
-- **Try It Now:** Experience the power of Airdropp.in by visiting our live demo at [https://www.airdropp.in](https://www.airdropp.in). Simply click "Join Room" and start sharing files with anyone, anywhere, in real-time.
+- **Try It Now:** Experience the power of Airdropp.in by visiting [https://www.airdropp.in](https://www.airdropp.in). Simply click "Join Room" and start sharing files with anyone, anywhere, in real-time.
 
 **Open Source for Contributors:**
 
@@ -27,3 +27,23 @@ Airdropp.in relies on the power of WebRTC for real-time peer-to-peer communicati
 **License:**
 
 This project is licensed under the MIT License.
+
+Sure! Here's the revised To-Do list using Markdown format:
+
+**To-Do List: Enhancements for Airdropp.in**
+
+- [ ] **Bi-Directional Transfer Fix:** Investigate and resolve the issue with bi-directional file transfers.
+
+- [ ] **Handling Peer Disconnects:** Implement a mechanism to handle scenarios when a peer leaves in the middle of a file transfer.
+
+- [ ] **Safari Compatibility:** Address the compatibility issues with Safari browser that cause discrepancies in received file formats.
+
+- [ ] **Upload/Download Speed Indication:** Introduce a feature to display real-time upload and download speeds during file sharing.
+
+- [ ] **Session File History:** Allow users to view a list of files shared during the current session.
+
+- [ ] **Handling Large Files:** Optimize Airdropp.in to handle large files effectively.
+
+- [ ] **Encryption Algorithms Research:** Conduct research on encryption algorithms and their suitability for real-time peer-to-peer file transfers.
+
+- [ ] **Data Encryption:** Implement data encryption during file transfers to ensure enhanced privacy and security.

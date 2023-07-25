@@ -31,26 +31,20 @@ This project is licensed under the terms of the [MIT License](./LICENSE).
 
 ## To-Do List:
 
-- [ ] **Bi-Directional Transfer Fix:** Check and troubleshoot bi-directional data transfer.
+- [ ] **Add Drag & Drop Feature**
 
-- [ ] **Handling Peer Disconnects:** Implement a mechanism to handle the case where a peer leaves in the middle of a file transfer.
+- [ ] **Responsive on smaller screens**
 
 - [ ] **Safari Compatibility:** while recieving video file in a safari browser
-
-- [ ] **Upload/Download Speed Indication:** Introduce a feature to display real-time upload and download speeds during file sharing.
-
-- [ ] **Session File History:** Allow users to view a list of files shared during the current session.
-
-- [ ] **Handling Large Files:** Optimize Airdropp.in to handle large files effectively.
 
 - [ ] **Encryption Algorithms Research:** Conduct research on encryption algorithms and their suitability for real-time peer-to-peer file transfers.
 
 - [ ] **Data Encryption:** Implement data encryption during file transfers to ensure enhanced privacy and security.
 
-- [ ] **Add Drag & Drop Feature**
+## Things that can be improved:
 
-## Completed:
+- [ ] **Accuracy of Upload/Download Speed Indication:**
 
-- ☑️ **Bi-directional issue solved**
+- [ ] **Handling Large Files:** Optimize Airdropp.in to handle large files effectively.
 
-- ☑️ **Handling Peer Disconnects solved**
+## Suggest a feature:

@@ -29,7 +29,7 @@ Airdropp.in relies on the power of WebRTC for real-time peer-to-peer communicati
 
 This project is licensed under the terms of the [MIT License](./LICENSE).
 
-**To-Do List: Enhancements for Airdropp.in**
+##To-Do List:
 
 - [ ] **Bi-Directional Transfer Fix:** Check and troubleshoot bi-directional data transfer.
 
@@ -46,3 +46,7 @@ This project is licensed under the terms of the [MIT License](./LICENSE).
 - [ ] **Encryption Algorithms Research:** Conduct research on encryption algorithms and their suitability for real-time peer-to-peer file transfers.
 
 - [ ] **Data Encryption:** Implement data encryption during file transfers to ensure enhanced privacy and security.
+
+## Completed:
+
+- [] **Bi-directional issue solved**

@@ -49,4 +49,4 @@ This project is licensed under the terms of the [MIT License](./LICENSE).
 
 ## Completed:
 
-- [] **Bi-directional issue solved**
+- ☑️ **Bi-directional issue solved**

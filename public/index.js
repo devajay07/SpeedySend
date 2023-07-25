@@ -16,98 +16,8 @@ let totalBytesReceived = 0;
 let bytesSent = 0;
 let bytesReceived = 0;
 
-const generateUsername = () => {
-  const adjectives = [
-    "Happy",
-    "Silly",
-    "Curious",
-    "Brave",
-    "Clever",
-    "Kind",
-    "Cool",
-    "Ninja",
-    "Saiyan",
-    "Wizard",
-    "Cosmic",
-    "Mystic",
-    "Heroic",
-    "Epic",
-    "Legendary",
-    "Daring",
-    "Sneaky",
-    "Spectacular",
-    "Fantastic",
-    "Super",
-    "Magical",
-    "Galactic",
-    "Incredible",
-    "Phantom",
-    "Eternal",
-  ];
-  const nouns = [
-    "Dog",
-    "Cat",
-    "Panda",
-    "Tiger",
-    "Elephant",
-    "Kangaroo",
-    "Dolphin",
-    "Samurai",
-    "Ninja",
-    "Dragon",
-    "Shinobi",
-    "Jedi",
-    "Sorcerer",
-    "Wizard",
-    "Champion",
-    "Warrior",
-    "Avenger",
-    "Guardian",
-    "Savior",
-    "Legend",
-    "Master",
-    "Hero",
-    "Villain",
-    "Mystery",
-    "Specter",
-    "Phantom",
-    "Unicorn",
-    "Wanderer",
-    "Pirate",
-    "Cyborg",
-    "Goddess",
-    "Beast",
-    "Alien",
-    "Titan",
-    "Vampire",
-    "Mercenary",
-    "Saiyan",
-    "Hunter",
-    "Sentinel",
-    "Doctor",
-    "Rebel",
-    "Luminary",
-    "Daredevil",
-  ];
+// ............>>> UI Setup <<<<<<<...............
 
-  const randomAdjective =
-    adjectives[Math.floor(Math.random() * adjectives.length)];
-  const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
-
-  return [randomAdjective, randomNoun];
-};
-
-function sendMessage() {
-  const message = "hii how are you"; // The message to send
-  if (dataChannel.readyState === "open") {
-    dataChannel.send(message);
-    console.log("Sent message:", message); // Display the actual message variable
-  } else {
-    console.log("Data channel is not ready.");
-  }
-}
-
-// Display the generated username on the page
 const a = generateUsername();
 const username = `${a[0]}${a[1]}`;
 document.getElementById("userprofile").textContent = `${a[0].at(0)}${a[1].at(
@@ -142,18 +52,20 @@ fileInput.addEventListener("change", () => {
 // Event listener for the "joined" event
 socket.on("created", (data) => {
   host = true;
+  handleUi();
 });
 socket.on("joined", (data) => {
   host = false;
   socket.emit("ready", roomId, username);
   buddy = data.firstUserUsername;
+  handleUi();
   handleLabel();
   updatePeerDetails();
 });
 // Event listener for the "full" event
 socket.on("full", () => {
   console.log("Room is full.");
-  // Handle room full scenario (e.g., show an error message)
+  showError("This room is currently full! Create one just for you🐶");
 });
 
 const initiateCall = (username) => {
@@ -201,48 +113,66 @@ const handleIceCandidate = (incoming) => {
   rtcConnection.addIceCandidate(candidate).catch((e) => console.log(e));
 };
 
+const handlePeerLeave = (username) => {
+  showError(`${username} has left the room.`);
+};
+const handleSocketDisconnected = () => {
+  console.warn("Disconnected from the server.");
+  showError("Disconneted for some reason");
+};
+const handleSocketError = () => {
+  console.error("WebSocket error:", error);
+  showError("Disconneted");
+};
+
 function createPeerConnection() {
   const connection = new RTCPeerConnection(iceServers);
   const dataChannelOptions = { ordered: true, maxRetransmits: 3 };
+  try {
+    dataChannel = connection.createDataChannel(
+      "myDataChannel",
+      dataChannelOptions
+    );
 
-  dataChannel = connection.createDataChannel(
-    "myDataChannel",
-    dataChannelOptions
-  );
+    setDataChannelListeners(dataChannel);
 
-  setDataChannelListeners(dataChannel);
-
-  connection.onicecandidate = (event) => {
-    if (event.candidate) {
-      socket.emit("ice-candidate", event.candidate, roomId);
-    }
-  };
-  connection.oniceconnectionstatechange = () => {
-    if (connection.iceConnectionState === "disconnected") {
-      console.log("disconnected");
-    } else if (connection.iceConnectionState === "failed") {
-      console.log("failed");
-    }
-  };
-  return connection;
+    connection.onicecandidate = (event) => {
+      if (event.candidate) {
+        socket.emit("ice-candidate", event.candidate, roomId);
+      }
+    };
+    connection.oniceconnectionstatechange = () => {
+      if (connection.iceConnectionState === "disconnected") {
+        console.log("disconnected");
+        showError("Disconnected from your buddy, Retrying!!");
+      } else if (connection.iceConnectionState === "failed") {
+        showError("Session Failed!! Retry");
+        console.log("failed");
+      }
+    };
+    return connection;
+  } catch (error) {
+    console.log(error);
+    showError("Error Connecting to Peer ! Try Again");
+  }
 }
 
 socket.on("ready", initiateCall);
 socket.on("offer", handleOffer);
 socket.on("answer", handleAnswer);
 socket.on("ice-candidate", handleIceCandidate);
+socket.on("peerLeave", handlePeerLeave);
+socket.on("disconnect", () => handleSocketDisconnected);
+socket.on("error", handleSocketError);
 
 function joinRoom() {
   roomId = document.getElementById("roomIdInput").value.trim();
 
   if (roomId === "") {
-    alert("Please enter a valid Room ID.");
-    return;
+    showError("Enter a valid room id");
+  } else {
+    socket.emit("join", { roomId, username });
   }
-
-  socket.emit("join", { roomId, username });
-
-  handleUi();
 
   // Add other event listeners here if needed
   // socket.on('leave',onPeerLeave);
@@ -381,6 +311,10 @@ function getInitials(fullName) {
 
 function uploadFile() {
   const file = fileInput.files[0];
+  if (!file) {
+    showError("No file selected for upload");
+    return;
+  }
   let fileName;
   fileInformation.style.display = "block";
   if (file.name.length >= 10) {
@@ -393,16 +327,19 @@ function uploadFile() {
   totalBytesToSend = file.size; // Store the total bytes to send
 
   // Send the file information over the data channel
-  dataChannel.send(
-    JSON.stringify({
-      type: "file-info",
-      name: file.name,
-      size: file.size,
-      totalChunks,
-      fileType: file.type,
-    })
-  );
-
+  if (dataChannel.readyState === "open") {
+    dataChannel.send(
+      JSON.stringify({
+        type: "file-info",
+        name: file.name,
+        size: file.size,
+        totalChunks,
+        fileType: file.type,
+      })
+    );
+  } else {
+    showError("Transfer Path is not ready");
+  }
   let offset = 0;
 
   // Read and send file chunks
@@ -426,4 +363,22 @@ function uploadFile() {
   };
 
   readSlice(file, offset);
+}
+
+function showError(message) {
+  const toastContainer = document.getElementById("toast-container");
+
+  const toast = document.createElement("div");
+  const removeBtn = document.createElement("button");
+  toast.classList.add("toast");
+  removeBtn.classList.add("toastBtn");
+  toast.textContent = message;
+  removeBtn.textContent = "X";
+  removeBtn.addEventListener("click", () => {
+    toast.remove();
+    removeBtn.remove();
+  });
+
+  toastContainer.appendChild(toast);
+  toastContainer.appendChild(removeBtn);
 }

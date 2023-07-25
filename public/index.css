@@ -5,13 +5,19 @@
     padding:0;
     box-sizing: border-box;
     text-align: center;
+    /* overflow:hidden; */
 }
 
 body {
     position: relative;
+    width:100vw;
+    height:82vh;
     background-color: black;
 }
-
+.entireBody{
+    width:100%;
+    height:100%;
+}
 body::before {
     content: "";
     background: url('./images/wormhole2.jpg');
@@ -221,6 +227,64 @@ body::before {
     letter-spacing: 0.04rem;
 }
 
+.toast-container{
+    position: fixed;
+    background-color: rgba(255, 65, 65, 0.8);
+    display: flex;
+    left: 50%;
+    border-radius:8px;
+    transform: translateX(-50%);
+    z-index: 9999;
+}
+.toast {
+    color: white;
+    background-color:transparent;
+    height: 100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    font-family: 'Acme', sans-serif;
+    letter-spacing: 0.1rem;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 1rem;
+    display: inline-block;
+    animation: toastShowing 0.5s;
+}
+.toastBtn{
+    background-color: transparent;
+    font-family: 'Acme', sans-serif;
+    border:none;
+    text-align: left;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius:8px;
+    font-size: 1.5rem;
+    padding: 10px;
+    animation: toastShowing 0.5s;
+}
+.toastBtn:hover{
+    background-color: rgba(247, 0, 0, 0.8);
+    cursor:pointer;
+}
+
+@keyframes toastShowing {
+    0%{
+        transform: rotate(0deg);
+    }
+    25%{
+        transform: rotate(10deg);
+    }
+    50%{
+        transform: rotate(-10deg);
+    }
+    75%{
+        transform: rotate(10deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
 /* updating ui after connection */
 
 .moveUserProfileContainer{

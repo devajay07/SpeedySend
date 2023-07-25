@@ -11,7 +11,6 @@ app.set("views", __dirname + "/views");
 app.use(express.static("public"));
 
 const port = 4000;
-let hostname;
 
 app.get("/", (req, res) => {
   res.render("index");
@@ -58,9 +57,9 @@ io.on("connection", (socket) => {
     socket.broadcast.to(roomId).emit("answer", answer);
   });
 
-  socket.on("leave", (roomId) => {
+  socket.on("leave", (roomId, username) => {
     socket.leave(roomId);
-    socket.broadcast.to(roomId).emit("leave");
+    socket.broadcast.to(roomId).emit("leave", username);
   });
 });
 

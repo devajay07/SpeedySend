@@ -202,7 +202,7 @@ function setDataChannelListeners(dataChannel) {
     const data = event.data;
     thread.style.backgroundColor = "rgb(0, 106, 255)";
     progressBar.style.backgroundColor = "orange";
-    fileInformation.style.display = "block";
+    if (isLargeDevice()) fileInformation.style.display = "block";
     // speedIndicator.style.display = "block";
     progressBar.style.width = "100%";
 
@@ -251,7 +251,7 @@ function setDataChannelListeners(dataChannel) {
         downloadLink.download = fileName;
 
         fileInformation.textContent = "Recieved";
-        filesSentContainer.style.display = "block";
+        updateFilesSentContainerDisplay();
         recievedFilesContainer.style.display = "block";
         updateFilesRecievedContainer(fileName, downloadLink);
 
@@ -334,7 +334,7 @@ function uploadFile() {
   }
 
   let fileName;
-  fileInformation.style.display = "block";
+  if (isLargeDevice()) fileInformation.style.display = "block";
   speedIndicator.style.display = "block";
   if (file.name.length >= 20) {
     fileName = file.name.substr(0, 20);
@@ -380,10 +380,10 @@ function uploadFile() {
       } else {
         progressBar.style.width = "100%";
         fileInformation.textContent = "Completed";
-        filesSentContainer.style.display = "block";
         recievedFilesContainer.style.display = "block";
         updateFilesSentContainer(fileName);
         speedIndicator.style.display = "none";
+        updateFilesSentContainerDisplay();
       }
     };
     reader.readAsArrayBuffer(slice);
@@ -450,3 +450,17 @@ function updateFilesRecievedContainer(fileName, downloadLink) {
 function handleDownloadClick(downloadLink) {
   downloadLink.click();
 }
+
+function isLargeDevice() {
+  return window.matchMedia("(min-width: 768px)").matches;
+}
+
+// Function to handle the display of filesSentContainer based on the screen size
+function updateFilesSentContainerDisplay() {
+  if (isLargeDevice()) {
+    filesSentContainer.style.display = "block";
+  } else {
+    filesSentContainer.style.display = "none";
+  }
+}
+window.addEventListener("resize", updateFilesSentContainerDisplay);

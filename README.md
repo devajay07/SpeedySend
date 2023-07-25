@@ -31,9 +31,9 @@ This project is licensed under the terms of the [MIT License](./LICENSE).
 
 ## To-Do List:
 
-- [ ] **Add Drag & Drop Feature**
+- [ ] **Send Queue is full:**
 
-- [ ] **Responsive on smaller screens**
+- [ ] **View Options in Phones:** file preview option in phone cause the page to reload thus closing connection.
 
 - [ ] **Safari Compatibility:** while recieving video file in a safari browser
 

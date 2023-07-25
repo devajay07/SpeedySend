@@ -29,7 +29,7 @@ Airdropp.in relies on the power of WebRTC for real-time peer-to-peer communicati
 
 This project is licensed under the terms of the [MIT License](./LICENSE).
 
-##To-Do List:
+## To-Do List:
 
 - [ ] **Bi-Directional Transfer Fix:** Check and troubleshoot bi-directional data transfer.
 

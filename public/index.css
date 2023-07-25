@@ -66,6 +66,7 @@ body::before {
 .mainContainerCenter{
     display: flex;
     width:100%;
+    gap:5rem;
     justify-content: center;
     align-items: center;
 }
@@ -268,6 +269,51 @@ body::before {
     background-color: rgba(247, 0, 0, 0.8);
     cursor:pointer;
 }
+
+.filesSent{
+    background-color:rgba(30,30,30,0.6);
+    padding:10px;
+    color:white;
+    border-radius: 4px;
+}
+
+.recievedFiles{
+    background-color:rgba(30,30,30,0.6);
+    padding:10px;
+    color:white;
+    border-radius: 4px;
+}
+
+.filesSent p{
+    font-size: 1.2rem;
+    color:#ffc457;
+    margin-bottom: 20px;
+}
+
+.recievedFiles p{
+    font-size: 1.2rem;
+    color:#ffc457;
+    margin-bottom: 20px;
+}
+.fileElement{
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.downloadBtn{
+    padding:5px 10px;
+    background-color: #ff0066;
+    border:none;
+    font-size: 0.85rem;
+    cursor:pointer;
+    border-radius:4px;
+}
+.downloadBtn:hover{
+    background-color: #c1004d;
+}
+
 
 @keyframes toastShowing {
     0%{

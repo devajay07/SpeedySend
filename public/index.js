@@ -35,6 +35,10 @@ const userNameDisplay = document.querySelector("#usernameDisplay");
 const peerNameDisplay = document.querySelector("#peernameDisplay");
 const fileInformation = document.querySelector("#fileInfo");
 const speedIndicator = document.querySelector("#speedIndicator");
+const filesSentContainer = document.querySelector("#filesSent");
+const recievedFilesContainer = document.querySelector("#recievedFiles");
+const filesSentList = document.querySelector("#filesSentList");
+const filesRecievedList = document.querySelector("#filesRecievedList");
 peerProfile.style.display = "none";
 peerProfileName.style.display = "none";
 mainContainer.style.display = "none";
@@ -42,6 +46,8 @@ fileInput.style.display = "none";
 thread.style.display = "none";
 fileInformation.style.display = "none";
 speedIndicator.style.display = "none";
+filesSent.style.display = "none";
+recievedFiles.style.display = "none";
 progressBar.style.width = "0px";
 
 browseSpan.addEventListener("click", () => {
@@ -217,8 +223,8 @@ function setDataChannelListeners(dataChannel) {
         totalChunks = receivedTotalChunks;
         fileType = receivedFileType;
         receivedChunks = [];
-        if (fileName.length >= 10) {
-          fileName = fileName.substr(0, 10);
+        if (fileName.length >= 20) {
+          fileName = fileName.substr(0, 20);
           fileName = fileName + "....";
         }
         fileInformation.textContent = `Receiving: ${fileName}, Size: ${fileSize} bytes`;
@@ -243,9 +249,11 @@ function setDataChannelListeners(dataChannel) {
         const downloadLink = document.createElement("a");
         downloadLink.href = URL.createObjectURL(fileBlob);
         downloadLink.download = fileName;
-        downloadLink.click();
 
         fileInformation.textContent = "Recieved";
+        filesSentContainer.style.display = "block";
+        recievedFilesContainer.style.display = "block";
+        updateFilesRecievedContainer(fileName, downloadLink);
 
         // Clear the receivedChunks array for the next file
         receivedChunks = [];
@@ -328,9 +336,9 @@ function uploadFile() {
   let fileName;
   fileInformation.style.display = "block";
   speedIndicator.style.display = "block";
-  if (file.name.length >= 10) {
-    fileName = file.name.substr(0, 10);
-    fileName = fileName + "....";
+  if (file.name.length >= 20) {
+    fileName = file.name.substr(0, 20);
+    fileName = fileName + "...";
   }
   fileInformation.textContent = `Sending: ${fileName}, Size: ${file.size} bytes`;
   const CHUNK_SIZE = 8 * 1024; // 16 KB chunk size (you can adjust this as needed)
@@ -372,6 +380,9 @@ function uploadFile() {
       } else {
         progressBar.style.width = "100%";
         fileInformation.textContent = "Completed";
+        filesSentContainer.style.display = "block";
+        recievedFilesContainer.style.display = "block";
+        updateFilesSentContainer(fileName);
         speedIndicator.style.display = "none";
       }
     };
@@ -413,4 +424,29 @@ function showError(message) {
 
   toastContainer.appendChild(toast);
   toastContainer.appendChild(removeBtn);
+}
+
+function updateFilesSentContainer(fileName) {
+  const fileElement = document.createElement("li");
+  fileElement.classList.add("fileElement");
+  fileElement.textContent = fileName;
+  filesSentList.appendChild(fileElement);
+}
+
+function updateFilesRecievedContainer(fileName, downloadLink) {
+  const fileElement = document.createElement("li");
+  fileElement.classList.add("fileElement");
+  const downloadBtn = document.createElement("button");
+  downloadBtn.textContent = "Download";
+  downloadBtn.classList.add("downloadBtn");
+  downloadBtn.addEventListener("click", () =>
+    handleDownloadClick(downloadLink)
+  );
+  fileElement.textContent = fileName;
+  fileElement.appendChild(downloadBtn);
+  filesRecievedList.appendChild(fileElement);
+}
+
+function handleDownloadClick(downloadLink) {
+  downloadLink.click();
 }

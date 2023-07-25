@@ -34,12 +34,14 @@ const thread = document.querySelector("#thread");
 const userNameDisplay = document.querySelector("#usernameDisplay");
 const peerNameDisplay = document.querySelector("#peernameDisplay");
 const fileInformation = document.querySelector("#fileInfo");
+const speedIndicator = document.querySelector("#speedIndicator");
 peerProfile.style.display = "none";
 peerProfileName.style.display = "none";
 mainContainer.style.display = "none";
 fileInput.style.display = "none";
 thread.style.display = "none";
 fileInformation.style.display = "none";
+speedIndicator.style.display = "none";
 progressBar.style.width = "0px";
 
 browseSpan.addEventListener("click", () => {
@@ -195,6 +197,7 @@ function setDataChannelListeners(dataChannel) {
     thread.style.backgroundColor = "rgb(0, 106, 255)";
     progressBar.style.backgroundColor = "orange";
     fileInformation.style.display = "block";
+    // speedIndicator.style.display = "block";
     progressBar.style.width = "100%";
 
     // Check if the received data is a string (JSON)
@@ -219,6 +222,9 @@ function setDataChannelListeners(dataChannel) {
           fileName = fileName + "....";
         }
         fileInformation.textContent = `Receiving: ${fileName}, Size: ${fileSize} bytes`;
+        // speedIndicator.textContent = `Download Speed: ${uploadSpeedInMbps.toFixed(
+        //   2
+        // )} Mbps`;
       }
     } else {
       // Store the received chunk in the receivedChunks array
@@ -309,14 +315,19 @@ function getInitials(fullName) {
   return firstLetter + lastLetter;
 }
 
+let startTime;
+let bytesSend = 0;
+
 function uploadFile() {
   const file = fileInput.files[0];
   if (!file) {
     showError("No file selected for upload");
     return;
   }
+
   let fileName;
   fileInformation.style.display = "block";
+  speedIndicator.style.display = "block";
   if (file.name.length >= 10) {
     fileName = file.name.substr(0, 10);
     fileName = fileName + "....";
@@ -343,6 +354,10 @@ function uploadFile() {
   let offset = 0;
 
   // Read and send file chunks
+  startTime = new Date().getTime(); // Record the start time before sending the file
+  const updateInterval = 500;
+  setInterval(updateUploadSpeed, updateInterval);
+
   const readSlice = (file, offset) => {
     const slice = file.slice(offset, offset + CHUNK_SIZE);
     const reader = new FileReader();
@@ -355,14 +370,31 @@ function uploadFile() {
       if (offset < file.size) {
         readSlice(file, offset);
       } else {
-        progressBar.style.width = "0%";
+        progressBar.style.width = "100%";
         fileInformation.textContent = "Completed";
+        speedIndicator.style.display = "none";
       }
     };
     reader.readAsArrayBuffer(slice);
   };
 
   readSlice(file, offset);
+}
+
+let uploadSpeedInMbps;
+
+function updateUploadSpeed() {
+  const endTime = new Date().getTime();
+  const timeTakenInMs = endTime - startTime;
+
+  const uploadSpeedInbps = (bytesSent * 8) / (timeTakenInMs / 1000);
+
+  // Convert upload speed to Mbps
+  uploadSpeedInMbps = uploadSpeedInbps / 10000000;
+
+  speedIndicator.textContent = `Upload Speed: ${uploadSpeedInMbps.toFixed(
+    2
+  )} Mbps`;
 }
 
 function showError(message) {

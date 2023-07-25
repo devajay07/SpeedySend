@@ -35,7 +35,7 @@ This project is licensed under the terms of the [MIT License](./LICENSE).
 
 - [ ] **Handling Peer Disconnects:** Implement a mechanism to handle the case where a peer leaves in the middle of a file transfer.
 
-- [ ] **Safari Compatibility:** Address the compatibility issues with Safari browser that cause issue in received file formats.
+- [ ] **Safari Compatibility:** while recieving video file in a safari browser
 
 - [ ] **Upload/Download Speed Indication:** Introduce a feature to display real-time upload and download speeds during file sharing.
 
@@ -46,6 +46,8 @@ This project is licensed under the terms of the [MIT License](./LICENSE).
 - [ ] **Encryption Algorithms Research:** Conduct research on encryption algorithms and their suitability for real-time peer-to-peer file transfers.
 
 - [ ] **Data Encryption:** Implement data encryption during file transfers to ensure enhanced privacy and security.
+
+- [ ] **Add Drag & Drop Feature**
 
 ## Completed:
 

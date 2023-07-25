@@ -50,3 +50,5 @@ This project is licensed under the terms of the [MIT License](./LICENSE).
 ## Completed:
 
 - ☑️ **Bi-directional issue solved**
+
+- ☑️ **Handling Peer Disconnects solved**

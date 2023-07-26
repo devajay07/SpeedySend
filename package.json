@@ -2,9 +2,9 @@
   "name": "airdropp",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",

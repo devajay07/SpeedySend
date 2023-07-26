@@ -15,6 +15,7 @@ let totalBytesToSend = 0;
 let totalBytesReceived = 0;
 let bytesSent = 0;
 let bytesReceived = 0;
+let errorShowed = false;
 
 // ............>>> UI Setup <<<<<<<...............
 
@@ -73,7 +74,7 @@ socket.on("joined", (data) => {
 // Event listener for the "full" event
 socket.on("full", () => {
   console.log("Room is full.");
-  showError("This room is currently full! Create one just for you🐶");
+  showErrorOrNot("This room is currently full! Create one just for you🐶");
 });
 
 const initiateCall = (username) => {
@@ -122,15 +123,15 @@ const handleIceCandidate = (incoming) => {
 };
 
 const handlePeerLeave = (username) => {
-  showError(`${username} has left the room.`);
+  showErrorOrNot(`${username} has left the room.`);
 };
 const handleSocketDisconnected = () => {
   console.warn("Disconnected from the server.");
-  showError("Disconneted for some reason");
+  showErrorOrNot("Disconneted for some reason");
 };
 const handleSocketError = () => {
   console.error("WebSocket error:", error);
-  showError("Disconneted");
+  showErrorOrNot("Disconneted");
 };
 
 function createPeerConnection() {
@@ -152,16 +153,16 @@ function createPeerConnection() {
     connection.oniceconnectionstatechange = () => {
       if (connection.iceConnectionState === "disconnected") {
         console.log("disconnected");
-        showError("Disconnected from your buddy, Retrying!!");
+        showErrorOrNot("Disconnected from your buddy, Retrying!!");
       } else if (connection.iceConnectionState === "failed") {
-        showError("Session Failed!! Retry");
+        showErrorOrNot("Session Failed!! Retry");
         console.log("failed");
       }
     };
     return connection;
   } catch (error) {
     console.log(error);
-    showError("Error Connecting to Peer ! Try Again");
+    showErrorOrNot("Error Connecting to Peer ! Try Again");
   }
 }
 
@@ -177,7 +178,7 @@ function joinRoom() {
   roomId = document.getElementById("roomIdInput").value.trim();
 
   if (roomId === "") {
-    showError("Enter a valid room id");
+    showErrorOrNot("Enter a valid room id");
   } else {
     socket.emit("join", { roomId, username });
   }
@@ -329,11 +330,12 @@ let bytesSend = 0;
 function uploadFile() {
   const file = fileInput.files[0];
   if (!file) {
-    showError("No file selected for upload");
+    errorShowed = true;
+    showErrorOrNot("No file selected for upload");
     return;
   }
 
-  let fileName;
+  let fileName = file.name;
   if (isLargeDevice()) fileInformation.style.display = "block";
   speedIndicator.style.display = "block";
   if (file.name.length >= 20) {
@@ -357,7 +359,8 @@ function uploadFile() {
       })
     );
   } else {
-    showError("Transfer Path is not ready");
+    errorShowed = true;
+    showErrorOrNot("Transfer Path is not ready");
   }
   let offset = 0;
 
@@ -380,7 +383,7 @@ function uploadFile() {
       } else {
         progressBar.style.width = "100%";
         fileInformation.textContent = "Completed";
-        recievedFilesContainer.style.display = "block";
+        if (isLargeDevice()) recievedFilesContainer.style.display = "block";
         updateFilesSentContainer(fileName);
         speedIndicator.style.display = "none";
         updateFilesSentContainerDisplay();
@@ -408,6 +411,12 @@ function updateUploadSpeed() {
   )} Mbps`;
 }
 
+function showErrorOrNot(message) {
+  if (errorShowed) return;
+  errorShowed = true;
+  showError(message);
+}
+
 function showError(message) {
   const toastContainer = document.getElementById("toast-container");
 
@@ -420,6 +429,7 @@ function showError(message) {
   removeBtn.addEventListener("click", () => {
     toast.remove();
     removeBtn.remove();
+    errorShowed = false;
   });
 
   toastContainer.appendChild(toast);

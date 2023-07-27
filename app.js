@@ -16,6 +16,14 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/guide", (req, res) => {
+  res.render("guide");
+});
+
+app.get("/info", (req, res) => {
+  res.render("info");
+});
+
 // const usertosocketMapping = new Map();
 const sockettouserMapping = new Map();
 

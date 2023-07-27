@@ -22,19 +22,53 @@ body {
 }
 body::before {
   content: "";
-  background: url("./images/wormhole2.jpg");
+  background: url("..//images/stars.png");
   background-size: contain;
   background-repeat: no-repeat;
-  opacity: 0.8;
+  opacity: 0.5;
   position: fixed;
   top: 50%;
   left: 50%;
   width: 100%;
   height: 100%;
   z-index: -1;
-  animation: rotateAndZoomImage 200s linear infinite;
+  animation: rotateAndZoomImage 400s linear infinite;
   transform: translate(-50%, -50%);
   transform: scale(2);
+}
+
+#navbar {
+  display: flex;
+  align-items: center;
+  height: 70px;
+  color: white;
+  justify-content: space-between;
+  margin: 2rem 0rem;
+}
+#left-nav {
+  flex: 1;
+}
+#center-nav {
+  flex: 5;
+}
+#right-nav {
+  flex: 1;
+}
+.guideLink {
+  margin-right: 40px;
+  text-decoration: none;
+  color: rgb(0, 115, 255);
+}
+.infoBtn {
+  transition: all 0.2s;
+  text-decoration: none;
+  color: white;
+  padding: 20px;
+}
+
+.infoBtn:hover {
+  cursor: pointer;
+  color: #c1004d;
 }
 
 @keyframes rotateAndZoomImage {
@@ -44,6 +78,7 @@ body::before {
 
   50% {
     transform: translate(-50%, -50%) rotate(180deg) scale(2);
+
     /* Adjust the scale (1.2) as per your preference */
   }
 
@@ -54,7 +89,6 @@ body::before {
 
 .brand {
   font-size: 3rem;
-  margin: 3rem 0rem;
   color: #ffffff;
   font-family: "Acme", sans-serif;
 }
@@ -86,6 +120,7 @@ body::before {
 .drop-zone {
   border: 2px dashed #313143;
   padding: 1rem;
+  color: white;
   border-radius: 8px;
   text-align: center;
   letter-spacing: 0.03rem;
@@ -132,10 +167,10 @@ body::before {
 #joinRoom button {
   border: none;
   font-size: 1rem;
-  background-color: #ffd078;
+  background-color: #ffad16;
   padding: 8px 20px;
   border-radius: 4px;
-  color: white;
+  color: rgb(86, 75, 75);
   cursor: pointer;
   transition: all 0.5s;
 }
@@ -178,7 +213,7 @@ body::before {
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  background-color: #ffcf75;
+  background-color: #ffad16;
 }
 .thread {
   width: 82vw;
@@ -205,7 +240,7 @@ body::before {
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  background-color: #ffcf75;
+  background-color: #ffad16;
 }
 
 .userNameDisplay {
@@ -359,6 +394,19 @@ body::before {
       transform: translate(-50%, -50%) rotate(360deg) scale(3.2);
     }
   }
+
+  #navbar {
+    margin: 0.5rem 0rem 2rem 0rem;
+  }
+
+  #center-nav {
+    flex: 6;
+  }
+
+  .guideLink {
+    display: none;
+  }
+
   .brand {
     font-size: 2.5rem;
     margin: 2rem 0rem;
@@ -369,7 +417,7 @@ body::before {
     font-size: 1.3rem;
   }
   #joinRoom input {
-    width: 150px;
+    width: 200px;
     padding: 8px;
     font-size: 0.8rem;
   }

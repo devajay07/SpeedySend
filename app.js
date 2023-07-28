@@ -1,6 +1,7 @@
 const { Server } = require("socket.io");
 const express = require("express");
 const http = require("http");
+const morgan = require("morgan");
 
 const app = express();
 const server = http.createServer(app);
@@ -9,6 +10,7 @@ const io = new Server(server);
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 app.use(express.static("public"));
+app.use(morgan("dev"));
 
 const port = 4000;
 
@@ -17,11 +19,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/guide", (req, res) => {
-  res.render("guide");
+  res.render("guide.ejs");
 });
 
 app.get("/info", (req, res) => {
-  res.render("info");
+  res.send("Helllo");
 });
 
 // const usertosocketMapping = new Map();

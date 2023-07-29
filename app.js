@@ -23,7 +23,7 @@ app.get("/guide", (req, res) => {
 });
 
 app.get("/info", (req, res) => {
-  res.send("Helllo");
+  res.render("info");
 });
 
 // const usertosocketMapping = new Map();

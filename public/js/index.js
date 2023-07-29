@@ -473,4 +473,3 @@ function updateFilesSentContainerDisplay() {
     filesSentContainer.style.display = "none";
   }
 }
-window.addEventListener("resize", updateFilesSentContainerDisplay);

@@ -263,6 +263,8 @@ body::before {
   background-color: rgba(255, 65, 65, 0.8);
   display: flex;
   left: 50%;
+  width: fit-content;
+  bottom: 50px;
   border-radius: 8px;
   transform: translateX(-50%);
   z-index: 9999;
@@ -287,6 +289,7 @@ body::before {
   background-color: transparent;
   font-family: "Acme", sans-serif;
   border: none;
+  color: black;
   text-align: left;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
@@ -343,6 +346,10 @@ body::before {
   background-color: #c1004d;
 }
 
+.phoneGuideLink {
+  display: none;
+}
+
 @keyframes toastShowing {
   0% {
     transform: rotate(0deg);
@@ -397,7 +404,7 @@ body::before {
   }
 
   #navbar {
-    margin: 0.5rem 0rem 2rem 0rem;
+    margin: 0.5rem 0.8rem 2rem 0rem;
   }
 
   #center-nav {
@@ -406,7 +413,6 @@ body::before {
 
   .guideLink {
     display: none;
-    margin-right: 2px;
   }
 
   .brand {
@@ -459,15 +465,6 @@ body::before {
   .peerNameDisplay {
     font-size: 1rem;
     letter-spacing: 0.02rem;
-  }
-  .toast-container {
-    position: fixed;
-    background-color: rgba(255, 65, 65, 0.8);
-    display: flex;
-    left: 50%;
-    border-radius: 8px;
-    transform: translateX(-50%);
-    z-index: 9999;
   }
   .filesSentPhone {
     display: none;

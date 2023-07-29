@@ -16,6 +16,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   color: white;
   height: 82vh;
   background-color: black;
@@ -74,5 +75,27 @@ body::before {
 
   100% {
     transform: translate(-50%, -50%) rotate(360deg) scale(2);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body::before {
+    background-size: contain;
+    opacity: 1;
+    background-position: center center;
+  }
+  @keyframes rotateAndZoomImage {
+    0% {
+      transform: translate(-50%, -50%) rotate(0) scale(3);
+    }
+
+    50% {
+      transform: translate(-50%, -50%) rotate(180deg) scale(3.2);
+      /* Adjust the scale (1.2) as per your preference */
+    }
+
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg) scale(3.2);
+    }
   }
 }

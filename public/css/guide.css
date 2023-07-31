@@ -59,6 +59,7 @@ body::before {
 
 .guide-container {
   background-color: rgba(69, 69, 69, 0.5);
+  border: 1px white dashed;
   padding: 10px;
   border-radius: 8px;
 }

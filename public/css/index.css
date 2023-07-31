@@ -59,6 +59,9 @@ body::before {
   text-decoration: none;
   color: rgb(0, 115, 255);
 }
+.phoneGuide {
+  display: none;
+}
 .infoBtn {
   transition: all 0.2s;
   text-decoration: none;
@@ -413,6 +416,12 @@ body::before {
 
   .guideLink {
     display: none;
+  }
+  .phoneGuide {
+    display: block;
+    position: fixed;
+    bottom: 90px;
+    left: 40%;
   }
 
   .brand {

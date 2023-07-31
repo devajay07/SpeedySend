@@ -421,7 +421,11 @@ body::before {
     display: block;
     position: fixed;
     bottom: 90px;
-    left: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-decoration: none;
+    color: #ff0066;
+    font-size: 1.1rem;
   }
 
   .brand {

@@ -90,3 +90,18 @@ body::before {
   gap: 30px;
   margin-bottom: 1rem;
 }
+
+@media screen and (max-width: 768px) {
+  .guide-steps {
+    gap: 20px;
+  }
+  .guide-container {
+    background-color: rgba(69, 69, 69, 0.2);
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .guide-heading {
+    margin: 2rem;
+  }
+}

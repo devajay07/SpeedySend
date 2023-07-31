@@ -23,7 +23,7 @@ app.get("/guide", (req, res) => {
 });
 
 app.get("/info", (req, res) => {
-  res.render("info");
+  res.render("info.ejs");
 });
 
 // const usertosocketMapping = new Map();

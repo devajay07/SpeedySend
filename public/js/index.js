@@ -56,7 +56,7 @@ browseSpan.addEventListener("click", () => {
 });
 
 fileInput.addEventListener("change", () => {
-  uploadFile();
+  uploadFile(0);
 });
 // Event listener for the "joined" event
 socket.on("created", (data) => {
@@ -327,14 +327,13 @@ function getInitials(fullName) {
 let startTime;
 let bytesSend = 0;
 
-function uploadFile() {
-  const file = fileInput.files[0];
+function uploadFile(index) {
+  const file = fileInput.files[index];
   if (!file) {
     errorShowed = true;
     showErrorOrNot("No file selected for upload");
     return;
   }
-
   let fileName = file.name;
   if (isLargeDevice()) fileInformation.style.display = "block";
   speedIndicator.style.display = "block";
@@ -387,6 +386,9 @@ function uploadFile() {
         updateFilesSentContainer(fileName);
         speedIndicator.style.display = "none";
         updateFilesSentContainerDisplay();
+        if (index < fileInput.files.length) {
+          uploadFile(++index);
+        }
       }
     };
     reader.readAsArrayBuffer(slice);

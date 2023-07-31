@@ -105,3 +105,11 @@ body::before {
     margin: 2rem;
   }
 }
+
+/* Apply the CSS for Safari only */
+@supports (-webkit-touch-callout: none) {
+  /* Safari-specific CSS styles go here */
+  .heading-container {
+    margin-top: 5rem;
+  }
+}

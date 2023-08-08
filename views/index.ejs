@@ -44,7 +44,11 @@
   <body>
     <header>
       <navbar id="navbar">
-        <div id="left-nav"></div>
+        <div id="left-nav">
+          <a class="feedback" href="/feedback" class="feedback"
+            >Feedback/Report a Error</a
+          >
+        </div>
         <div id="center-nav"><h1 class="brand">SpeedySend</h1></div>
         <div id="right-nav">
           <a href="/guide" class="guideLink">How To Use?</a>
@@ -58,7 +62,7 @@
       <!-- Join Room Section -->
       <div id="joinRoom">
         <div class="centeredLabel">
-          <h2 id="label">Join a room to send or receive a file</h2>
+          <h2 id="label">Create or join a room to send/receive a file</h2>
         </div>
         <div class="flex">
           <input
@@ -148,6 +152,9 @@
     <script src="../js/index.js"></script>
 
     <a href="/guide" class="phoneGuide">How To Use?</a>
+    <a class="phoneFeedback" href="/feedback" class="feedback"
+      >Feedback/Report a Error</a
+    >
     <!-- Toast Container -->
     <div class="toast-container" id="toast-container"></div>
   </body>

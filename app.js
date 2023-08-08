@@ -2,6 +2,9 @@ const { Server } = require("socket.io");
 const express = require("express");
 const http = require("http");
 const morgan = require("morgan");
+const fs = require("fs");
+const path = require("path");
+const bodyParser = require("body-parser");
 
 const app = express();
 const server = http.createServer(app);
@@ -11,6 +14,8 @@ app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 app.use(express.static("public"));
 app.use(morgan("dev"));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
 
 const port = 4000;
 
@@ -24,6 +29,53 @@ app.get("/guide", (req, res) => {
 
 app.get("/info", (req, res) => {
   res.render("info.ejs");
+});
+
+app.get("/feedback", (req, res) => {
+  res.render("feedback.ejs");
+});
+
+app.post("/submit-feedback", (req, res) => {
+  const { email, feedback } = req.body;
+  const currentDate = new Date().toISOString().split("T")[0];
+  const feedbackText = `Email: ${email || null}\nFeedback: ${feedback}\n\n`;
+
+  const feedbackFilePath = path.join(__dirname, "feedback", "feedback.txt");
+
+  fs.readFile(feedbackFilePath, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading feedback file:", err);
+      return res.status(500).json({ success: false });
+    }
+
+    const existingFeedback = data.trim();
+    const feedbackEntries = existingFeedback.split(/\n\d{4}-\d{2}-\d{2}\n/);
+    const lastFeedbackDate =
+      feedbackEntries[feedbackEntries.length - 1].split("\n")[0];
+
+    if (lastFeedbackDate === currentDate) {
+      // Append to existing feedback for the current date
+      fs.appendFile(feedbackFilePath, feedbackText, (appendErr) => {
+        if (appendErr) {
+          console.error("Error writing feedback:", appendErr);
+          return res.status(500).json({ success: false });
+        } else {
+          return res.status(200).json({ success: true });
+        }
+      });
+    } else {
+      // Create a new entry with the current date
+      const newFeedbackEntry = `\n${currentDate}\n\n${feedbackText}`;
+      fs.appendFile(feedbackFilePath, newFeedbackEntry, (appendErr) => {
+        if (appendErr) {
+          console.error("Error writing feedback:", appendErr);
+          return res.status(500).json({ success: false });
+        } else {
+          return res.status(200).json({ success: true });
+        }
+      });
+    }
+  });
 });
 
 // const usertosocketMapping = new Map();

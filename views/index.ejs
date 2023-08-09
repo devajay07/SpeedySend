@@ -62,7 +62,15 @@
       <!-- Join Room Section -->
       <div id="joinRoom">
         <div class="centeredLabel">
-          <h2 id="label">Create or join a room to send/receive a file</h2>
+          <div id="roomIdInfoContainer" class="roomIdInfoContainer">
+            <h2 class="roomIdLabel">Your Room Id:</h2>
+            <input id="roomIdInputLabel" type="text" readonly />
+            <i id="copy" class="fa-solid fa-copy fa-xl fa-shake copy"></i>
+          </div>
+
+          <h2 class="label" id="label">
+            Create or join a room to send/receive a file
+          </h2>
         </div>
         <div class="flex">
           <input

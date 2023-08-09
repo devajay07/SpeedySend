@@ -4,6 +4,6 @@ function handleUi() {
   document.getElementById("usernameLabel").textContent = username;
   userNameDisplay.style.color = "white";
   peerNameDisplay.style.color = "white";
-  handleLabel();
+  handleLabel(roomId);
   showConnectionAnimatiion();
 }

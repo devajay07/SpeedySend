@@ -33,6 +33,9 @@ const filesSentContainer = document.querySelector("#filesSent");
 const recievedFilesContainer = document.querySelector("#recievedFiles");
 const filesSentList = document.querySelector("#filesSentList");
 const filesRecievedList = document.querySelector("#filesRecievedList");
+const roomIdInputLabel = document.querySelector("#roomIdInputLabel");
+const copyBtn = document.querySelector("#copy");
+const roomIdInfoContainer = document.querySelector("#roomIdInfoContainer");
 peerProfile.style.display = "none";
 peerProfileName.style.display = "none";
 mainContainer.style.display = "none";
@@ -42,10 +45,21 @@ fileInformation.style.display = "none";
 speedIndicator.style.display = "none";
 filesSent.style.display = "none";
 recievedFiles.style.display = "none";
+roomIdInfoContainer.style.display = "none";
 progressBar.style.width = "0px";
 
 browseSpan.addEventListener("click", () => {
   fileInput.click();
+});
+
+copyBtn.addEventListener("click", () => {
+  navigator.clipboard.writeText(roomIdInputLabel.value);
+  roomIdInfoContainer.removeChild(copyBtn);
+  const tick = document.createElement("i");
+  tick.classList.add("fa-solid");
+  tick.classList.add("fa-check");
+  tick.classList.add("fa-xl");
+  roomIdInfoContainer.appendChild(tick);
 });
 
 fileInput.addEventListener("change", () => {
@@ -54,6 +68,8 @@ fileInput.addEventListener("change", () => {
 // Event listener for the "joined" event
 socket.on("created", (data) => {
   host = true;
+  roomIdInfoContainer.style.display = "flex";
+  roomIdInputLabel.value = roomId;
   handleUi();
 });
 socket.on("joined", (data) => {
